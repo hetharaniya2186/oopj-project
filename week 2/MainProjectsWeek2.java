@@ -27,7 +27,6 @@ class MainProjectsWeek2 {
                 !pass.matches(".*[_@#].*")) {
 
             showPasswordRulesBoxFancy();
-
             return false;
         }
         return true;
@@ -299,6 +298,7 @@ class MainProjectsWeek2 {
 
         do {
             showBankMenuBox();
+            // System.out.println("\n|-----------------|");
             /*
              * System.out.println("|-----------------|");
              * System.out.println("|--- Bank Menu ---|");
