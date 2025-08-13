@@ -6,14 +6,31 @@ class MainProjectsWeek2 {
     static int userCount = 0;
 
     // Register a new user
-    public static void registerUser(String uname,String pass,double balance) {
-        
+    public static void registerUser(String uname, String pass, double balance) {
+
         userDetails[userCount][0] = uname;
         userDetails[userCount][1] = pass;
         userDetails[userCount][2] = String.valueOf(balance);
 
         userCount++;
         System.out.println("User registered successfully!");
+    }
+
+    // Validate password
+    public static boolean validatePassword(String pass) {
+        // Use >= for length check, and OR (||) so any missing requirement fails
+        // validation
+        if (pass.length() < 8 ||
+                !pass.matches(".*[A-Z].*") ||
+                !pass.matches(".*[a-z].*") ||
+                !pass.matches(".*[0-9].*") ||
+                !pass.matches(".*[_@#].*")) {
+
+            showPasswordRulesBoxFancy();
+
+            return false;
+        }
+        return true;
     }
 
     // Login user
@@ -64,37 +81,77 @@ class MainProjectsWeek2 {
         System.out.println("Balance: " + userDetails[userIndex][2]);
     }
 
-    //for login successfully
-    public static void detailforlogin(int userIndex){
-            Scanner sc = new Scanner(System.in);
-            int choice;
-            double amount;
-            do{
-            System.out.println("\n|----------------|");
-            System.out.println("|--- function ---|");
-            System.out.println("|----------------|\n");
-            System.out.println("1. Deposit Money");
-            System.out.println("2. Withdraw Money");
-            System.out.println("3. Show Balance");
-            System.out.println("4. View Account Details");
-            System.out.println("5. Log out");
+    // Function to display details and options
+    // by using chatgpt and only for looking good
+
+    static void showFunctionMenuBox() {
+        final String RESET = "\u001B[0m";
+        final String CYAN = "\u001B[36m";
+        final String YELLOW = "\u001B[33m";
+
+        String[] lines = {
+                "Function Menu",
+                "1. Deposit Money",
+                "2. Withdraw Money",
+                "3. Show Balance",
+                "4. View Account Details",
+                "5. Log out"
+        };
+
+        int w = 0;
+        for (String s : lines)
+            w = Math.max(w, s.length());
+        String top = CYAN + "┌" + "─".repeat(w + 2) + "┐" + RESET;
+        String bottom = CYAN + "└" + "─".repeat(w + 2) + "┘" + RESET;
+
+        System.out.println("\n" + top);
+        for (int i = 0; i < lines.length; i++) {
+            if (i == 0) {
+                System.out.println(
+                        CYAN + "│ " + YELLOW + lines[i] + " ".repeat(w - lines[i].length()) + CYAN + " │" + RESET);
+            } else {
+                System.out.println(
+                        CYAN + "│ " + RESET + lines[i] + " ".repeat(w - lines[i].length()) + CYAN + " │" + RESET);
+            }
+        }
+        System.out.println(bottom);
+    }
+
+    // for login successfully
+
+    public static void detailforlogin(int userIndex) {
+        Scanner sc = new Scanner(System.in);
+        int choice;
+        double amount;
+        do {
+            showFunctionMenuBox();
+            /*
+             * System.out.println("\n|----------------|");
+             * System.out.println("|--- function ---|");
+             * System.out.println("|----------------|\n");
+             * System.out.println("1. Deposit Money");
+             * System.out.println("2. Withdraw Money");
+             * System.out.println("3. Show Balance");
+             * System.out.println("4. View Account Details");
+             * System.out.println("5. Log out");
+             */
             System.out.print("\nEnter choice: ");
             choice = sc.nextInt();
-            switch(choice){
+            switch (choice) {
                 case 1:
                     System.out.print("Enter amount to deposit: ");
                     amount = sc.nextDouble();
-                    depositMoney(amount,userIndex);
+                    depositMoney(amount, userIndex);
                     break;
-                case 2: 
+                case 2:
                     System.out.print("Enter amount to withdraw: ");
                     amount = sc.nextDouble();
-                    withdrawMoney(amount,userIndex);
+                    withdrawMoney(amount, userIndex);
                     break;
-                case 3: 
+                case 3:
                     showBalance(userIndex);
                     break;
-                case 4: 
+                case 4:
                     viewAccountDetails(userIndex);
                     break;
                 case 5:
@@ -104,31 +161,164 @@ class MainProjectsWeek2 {
                     System.out.println("Invalid choice.");
                     break;
             }
-        }while (choice != 5);
+        } while (choice != 5);
     }
+
+    /*
+     * static void showPasswordRulesBox() {
+     * String[] lines = {
+     * "Password rules:",
+     * "• At least 8 characters",
+     * "• At least one uppercase letter",
+     * "• At least one lowercase letter",
+     * "• At least one digit",
+     * "• At least one special character (_@#)"
+     * };
+     * 
+     * // compute width
+     * int w = 0;
+     * for (String s : lines)
+     * w = Math.max(w, s.length());
+     * String border = "+" + "-".repeat(w + 2) + "+";
+     * 
+     * System.out.println(border);
+     * for (String s : lines) {
+     * System.out.println("| " + s + " ".repeat(w - s.length()) + " |");
+     * }
+     * System.out.println(border);
+     * }
+     */
+
+    // by using chatgpt and only for looking good
+
+    static void showPasswordRulesBoxFancy() {
+        final String RESET = "\u001B[0m";
+        final String CYAN = "\u001B[36m";
+        final String YELLOW = "\u001B[33m";
+
+        String[] lines = {
+                "Password rules:",
+                "--> At least 8 characters",
+                "--> At least one uppercase letter",
+                "--> At least one lowercase letter",
+                "--> At least one digit",
+                "--> At least one special character (_@#)"
+        };
+
+        int w = 0;
+        for (String s : lines)
+            w = Math.max(w, s.length());
+        String top = CYAN + "┌" + "─".repeat(w + 2) + "┐" + RESET;
+        String bottom = CYAN + "└" + "─".repeat(w + 2) + "┘" + RESET;
+
+        System.out.println(top);
+        for (int i = 0; i < lines.length; i++) {
+            if (i == 0) {
+                System.out.println(
+                        CYAN + "│ " + YELLOW + lines[i] + " ".repeat(w - lines[i].length()) + CYAN + " │" + RESET);
+            } else {
+                System.out.println(
+                        CYAN + "│ " + RESET + lines[i] + " ".repeat(w - lines[i].length()) + CYAN + " │" + RESET);
+            }
+        }
+        System.out.println(bottom);
+    }
+
+    /*
+     * static void showPasswordRulesBoxColor() {
+     * final String RESET = "\u001B[0m";
+     * final String CYAN = "\u001B[36m";
+     * final String YELL = "\u001B[33m";
+     * 
+     * String[] lines = {
+     * "Password rules:",
+     * "• At least 8 characters",
+     * "• At least one uppercase letter",
+     * "• At least one lowercase letter",
+     * "• At least one digit",
+     * "• At least one special character (_@#)"
+     * };
+     * 
+     * int w = 0;
+     * for (String s : lines)
+     * w = Math.max(w, s.length());
+     * String border = "+" + "-".repeat(w + 2) + "+";
+     * 
+     * System.out.println(CYAN + border + RESET);
+     * System.out.println(CYAN + "| " + YELL + lines[0] + " ".repeat(w -
+     * lines[0].length()) + CYAN + " |" + RESET);
+     * for (int i = 1; i < lines.length; i++) {
+     * System.out
+     * .println(CYAN + "| " + RESET + lines[i] + " ".repeat(w - lines[i].length()) +
+     * CYAN + " |" + RESET);
+     * }
+     * System.out.println(CYAN + border + RESET);
+     * }
+     */
+
+    // by using chatgpt and only for looking good
+
+    static void showBankMenuBox() {
+        final String RESET = "\u001B[0m";
+        final String CYAN = "\u001B[36m";
+        final String YELLOW = "\u001B[33m";
+
+        String[] lines = {
+                "Bank Menu",
+                "1. Register User",
+                "2. Login User",
+                "3. Exit"
+        };
+
+        int w = 0;
+        for (String s : lines)
+            w = Math.max(w, s.length());
+        String top = CYAN + "┌" + "─".repeat(w + 2) + "┐" + RESET;
+        String bottom = CYAN + "└" + "─".repeat(w + 2) + "┘" + RESET;
+
+        System.out.println(top);
+        for (int i = 0; i < lines.length; i++) {
+            if (i == 0) {
+                System.out.println(
+                        CYAN + "│ " + YELLOW + lines[i] + " ".repeat(w - lines[i].length()) + CYAN + " │" + RESET);
+            } else {
+                System.out.println(
+                        CYAN + "│ " + RESET + lines[i] + " ".repeat(w - lines[i].length()) + CYAN + " │" + RESET);
+            }
+        }
+        System.out.println(bottom);
+        System.out.print("\nEnter choice: ");
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int choice;
         int loggedInUser = -1;
-        String uname,pass;
+        String uname, pass;
         double balance;
 
         do {
-            System.out.println("|-----------------|");
-            System.out.println("|--- Bank Menu ---|");
-            System.out.println("|-----------------|\n");
-            System.out.println("1. Register User");
-            System.out.println("2. Login User");
-            System.out.println("3. Exit");
-            System.out.print("\nEnter choice: ");
+            showBankMenuBox();
+            /*
+             * System.out.println("|-----------------|");
+             * System.out.println("|--- Bank Menu ---|");
+             * System.out.println("|-----------------|\n");
+             * System.out.println("1. Register User");
+             * System.out.println("2. Login User");
+             * System.out.println("3. Exit");
+             * System.out.print("\nEnter choice: ");
+             */
             choice = sc.nextInt();
             sc.nextLine();
 
             switch (choice) {
                 case 1:
-                    System.out.print("Enter new username: ");
+                    System.out.print("Enter new username minimum 8 characters long: ");
                     uname = sc.nextLine().toLowerCase();
-
+                    if (uname.length() < 8) {
+                        System.out.println("Username must be at least 8 characters long.");
+                        return;
+                    }
                     // Check for duplicate username
                     for (int i = 0; i < userCount; i++) {
                         if (userDetails[i][0].equals(uname)) {
@@ -136,15 +326,21 @@ class MainProjectsWeek2 {
                             return;
                         }
                     }
+                    // showPasswordRulesBoxColor();
+                    System.out.println("");
 
-                    System.out.print("Enter password: ");
+                    showPasswordRulesBoxFancy();
+                    System.out.println("");
+                    // showPasswordRulesBox();
+                    System.out.print("\nEnter password: ");
                     pass = sc.nextLine();
-
+                    if (!validatePassword(pass)) {
+                        return; // Exit if password validation fails
+                    }
                     System.out.print("Enter starting balance: ");
                     balance = sc.nextDouble();
                     sc.nextLine();
-
-                    registerUser(uname,pass,balance);
+                    registerUser(uname, pass, balance);
                     break;
                 case 2:
                     System.out.print("Enter username: ");
@@ -153,7 +349,7 @@ class MainProjectsWeek2 {
                     pass = sc.nextLine();
                     loggedInUser = loginUser(uname, pass);
                     break;
-                case 3: 
+                case 3:
                     System.out.println("Exiting...");
                     break;
                 default:
