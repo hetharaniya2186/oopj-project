@@ -1,1 +1,1 @@
-class DEMO{}
+class DEMO123{}
