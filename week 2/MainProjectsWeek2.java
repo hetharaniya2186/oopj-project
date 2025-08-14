@@ -1,19 +1,27 @@
 import java.util.Scanner;
 
 class MainProjectsWeek2 {
-    // 2D array : [][0]=username, [][1]=password, [][2]=balance
-    static String[][] userDetails = new String[100][3];
+    // 2D array : [][0]=username, [][1]=password, [][2]=balance,[][3]=email
+    static String[][] userDetails = new String[100][4];
     static int userCount = 0;
 
     // Register a new user
-    public static void registerUser(String uname, String pass, double balance) {
+    public static void registerUser(String uname, String pass, double balance, String email) {
 
         userDetails[userCount][0] = uname;
         userDetails[userCount][1] = pass;
         userDetails[userCount][2] = String.valueOf(balance);
+        userDetails[userCount][3] = email;
 
         userCount++;
         System.out.println("User registered successfully!");
+    }
+
+    // validate email id
+    public static boolean validateEmail(String email) {
+        // Simple regex for email validation
+        String emailRegex = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$";
+        return email.matches(emailRegex);
     }
 
     // Validate password
@@ -77,6 +85,7 @@ class MainProjectsWeek2 {
     // View account details
     public static void viewAccountDetails(int userIndex) {
         System.out.println("\nUsername: " + userDetails[userIndex][0]);
+        System.out.println("Email: " + userDetails[userIndex][3]);
         System.out.println("Balance: " + userDetails[userIndex][2]);
     }
 
@@ -295,7 +304,7 @@ class MainProjectsWeek2 {
         int loggedInUser = -1;
         String uname, pass;
         double balance;
-
+        String email;
         do {
             showBankMenuBox();
             // System.out.println("\n|-----------------|");
@@ -337,10 +346,16 @@ class MainProjectsWeek2 {
                     if (!validatePassword(pass)) {
                         return; // Exit if password validation fails
                     }
+                    System.out.print("Enter Email id: ");
+                    email = sc.nextLine().toLowerCase();
+                    if (!validateEmail(email)) {
+                        System.out.println("Invalid email format. Please try again.");
+                        return; // Exit if email validation fails
+                    }
                     System.out.print("Enter starting balance: ");
                     balance = sc.nextDouble();
                     sc.nextLine();
-                    registerUser(uname, pass, balance);
+                    registerUser(uname, pass, balance, email);
                     break;
                 case 2:
                     System.out.print("Enter username: ");
