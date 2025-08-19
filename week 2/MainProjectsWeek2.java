@@ -326,35 +326,39 @@ class MainProjectsWeek2 {
                     uname = sc.nextLine().toLowerCase();
                     if (uname.length() < 8) {
                         System.out.println("Username must be at least 8 characters long.");
-                        return;
+                        break;
                     }
                     // Check for duplicate username
                     for (int i = 0; i < userCount; i++) {
                         if (userDetails[i][0].equals(uname)) {
                             System.out.println("Username already exists. Please try again.");
-                            return;
+                            break;
                         }
                     }
-                    // showPasswordRulesBoxColor();
-                    System.out.println("");
 
+                    System.out.println("");
                     showPasswordRulesBoxFancy();
                     System.out.println("");
-                    // showPasswordRulesBox();
-                    System.out.print("\nEnter password: ");
-                    pass = sc.nextLine();
-                    if (!validatePassword(pass)) {
-                        return; // Exit if password validation fails
-                    }
-                    System.out.print("Enter Email id: ");
-                    email = sc.nextLine().toLowerCase();
-                    if (!validateEmail(email)) {
-                        System.out.println("Invalid email format. Please try again.");
-                        return; // Exit if email validation fails
-                    }
+
+                    // Password retry loop
+                    do {
+                        System.out.print("\nEnter password: ");
+                        pass = sc.nextLine();
+                    } while (!validatePassword(pass));
+
+                    // Email retry loop
+                    do {
+                        System.out.print("Enter Email id: ");
+                        email = sc.nextLine().toLowerCase();
+                        if (!validateEmail(email)) {
+                            System.out.println("Invalid email format. Please try again.");
+                        }
+                    } while (!validateEmail(email));
+
                     System.out.print("Enter starting balance: ");
                     balance = sc.nextDouble();
                     sc.nextLine();
+
                     registerUser(uname, pass, balance, email);
                     break;
                 case 2:
