@@ -20,8 +20,8 @@ class MainProjectsWeek2 {
     // validate email id
     public static boolean validateEmail(String email) {
         // Simple regex for email validation
-        String emailRegex = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$";
-        return email.matches(emailRegex);
+        String emailmatch = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$";
+        return email.matches(emailmatch);
     }
 
     // Validate password
@@ -324,8 +324,8 @@ class MainProjectsWeek2 {
                 case 1:
                     System.out.print("Enter new username minimum 8 characters long: ");
                     uname = sc.nextLine().toLowerCase();
-                    if (uname.length() < 8) {
-                        System.out.println("Username must be at least 8 characters long.");
+                    if (uname.length() < 3) {
+                        System.out.println("Username must be at least 3 characters long.");
                         break;
                     }
                     // Check for duplicate username
