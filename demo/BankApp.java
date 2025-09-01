@@ -1,11 +1,15 @@
 import java.util.Scanner;
 
+//user class to hold user details
 class User {
+
+    // User attributes
     private String username;
     private String password;
     private String email;
     private double balance;
 
+    // Constructor
     public User(String username, String password, String email, double balance) {
         this.username = username;
         this.password = password;
@@ -42,6 +46,7 @@ class User {
     }
 }
 
+// Main Bank Application
 public class BankApp {
     static User[] users = new User[100];
     static int userCount = 0;
@@ -186,7 +191,7 @@ public class BankApp {
         System.out.println(bottom);
     }
 
-    // Show main bank menu
+    // Show main bank menu "chatgpt"
     static void showBankMenuBox() {
         final String RESET = "\u001B[0m";
         final String CYAN = "\u001B[36m";
@@ -219,7 +224,7 @@ public class BankApp {
         System.out.print("\nEnter choice: ");
     }
 
-    // Show function menu
+    // Show function menu "chatgpt"
     static void showFunctionMenuBox() {
         final String RESET = "\u001B[0m";
         final String CYAN = "\u001B[36m";
@@ -264,6 +269,7 @@ public class BankApp {
             choice = sc.nextInt();
             sc.nextLine();
 
+            // User choices
             switch (choice) {
                 case 1:
                     System.out.print("Enter new username minimum 3 characters long: ");
